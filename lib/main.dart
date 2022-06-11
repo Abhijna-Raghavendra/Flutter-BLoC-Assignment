@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dio/dio.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,12 +19,20 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Counter App',
             theme: ThemeData(
-                fontFamily: 'Press Start 2P',
-                //primarySwatch: Color.fromARGB(480, 252, 189, 19),
-                colorScheme: ColorScheme.fromSwatch().copyWith(
+              fontFamily: 'Press Start 2P',
+              colorScheme: ColorScheme.fromSwatch().copyWith(
                   primary: const Color.fromARGB(480, 88, 88, 88),
-                  secondary: const Color.fromARGB(480, 88, 88, 88),
-                )),
+                  secondary: Colors.white),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(480, 88, 88, 88),
+                  primary: Colors.white,
+                  fixedSize: Size.fromRadius(26.r),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.zero)),
+                ),
+              ),
+            ),
             home: const MyHomePage(title: 'Counter App'),
           );
         });
@@ -40,11 +49,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _binary = '0';
 
-  void _incrementCounter() async {
+  void _incrementCounter() {
+    _counter++;
+  }
+
+  void _binaryconverter() async {
+    var dio = Dio();
+    final response = await dio
+        .get('https://networkcalc.com/api/binary/$_counter?from=10&to=2');
     setState(() {
-      _counter++;
+      _binary = response.data["converted"];
     });
+  }
+
+  void _decrementCounter() async {
+    _counter--;
   }
 
   @override
@@ -57,12 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Center(
+            Center(
               child: Text(
                 'You have pushed the button this many times: ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   height: 1.7,
+                  fontSize: 16.sp,
                 ),
               ),
             ),
@@ -74,21 +96,46 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 35.sp,
                   )),
             ),
+            Text(
+              '[$_binary]',
+              style: TextStyle(
+                fontSize: 16.sp,
+              ),
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _incrementCounter();
-        },
-        tooltip: 'Increment',
-        child: Text(
-          '+',
-          style: TextStyle(
-            fontSize: 24.sp,
-          ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 20.sp),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                _decrementCounter();
+                _binaryconverter();
+              },
+              child: Text(
+                '-',
+                style: TextStyle(
+                  fontSize: 24.sp,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                _incrementCounter();
+                _binaryconverter();
+              },
+              child: Text(
+                '+',
+                style: TextStyle(
+                  fontSize: 24.sp,
+                ),
+              ),
+            ),
+          ],
         ),
-        shape: const BeveledRectangleBorder(borderRadius: BorderRadius.zero),
       ),
     );
   }
