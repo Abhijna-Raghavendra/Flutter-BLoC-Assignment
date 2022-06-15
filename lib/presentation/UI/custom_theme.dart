@@ -1,7 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
-customTheme(context){
+customTheme(context) {
   final customTheme = ThemeData(
     fontFamily: 'Press Start 2P',
     colorScheme: ColorScheme.fromSwatch().copyWith(
