@@ -3,13 +3,12 @@ import 'package:counter_app/models/binary_model.dart';
 
 class ApiProvider {
   final Dio _dio = Dio();
-  final String _url =
-      'https://networkcalc.com/api/binary/{number}?from=10&to=2';
+  
 
   Future<BinaryModel?> fetchBinaryList({required int  number}) async {
     BinaryModel? binarymodel;
     try {
-      Response response = await _dio.get(_url);
+      Response response = await _dio.get('https://networkcalc.com/api/binary/$number?from=10&to=2');
       BinaryModel data = BinaryModel.fromJson(response.data);
     } on DioError catch (e) {
       if (e.response != null) {

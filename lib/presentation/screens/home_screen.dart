@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Center(child: Text(widget.title)),
                 ),
                 body: Center(
-                              child: Row(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [ BlocBuilder<CounterBloc, CounterState>(
                                 builder: (context, state) {
