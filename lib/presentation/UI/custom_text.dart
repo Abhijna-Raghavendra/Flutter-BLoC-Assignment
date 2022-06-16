@@ -3,7 +3,7 @@ import 'package:counter_app/logic/bloc/counter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
-Widget customText(int _counter, String _binary, context) {
+Widget customText(int _counter, String? _binary, context) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
