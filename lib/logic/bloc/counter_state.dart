@@ -8,13 +8,7 @@ class CounterState extends Equatable {
     required this.counterValue,
     required this.wasIncremented,
   });
-  
 
   @override
   List<Object?> get props => [counterValue];
 }
-
-
-
-
-

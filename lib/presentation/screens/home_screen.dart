@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 body: Center(
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                       BlocBuilder<CounterBloc, CounterState>(
                         builder: (context, state) {
@@ -48,14 +48,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                   if (data != null) {
                                     _binary = data.converted;
                                     _counter = state.counterValue;
-                                    return Text(_binary!);
+                                    return customText(
+                                        _counter, _binary, true, context);
                                   }
                                 }
-                                return const CircularProgressIndicator();
+                                return customText(
+                                    _counter, _binary, false, context);
                               });
                         },
                       ),
-                      customText(_counter, _binary, context),
                     ])),
                 bottomNavigationBar: Padding(
                   padding:
