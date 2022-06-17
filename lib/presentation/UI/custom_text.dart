@@ -3,8 +3,8 @@ import 'package:counter_app/logic/bloc/counter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
-Widget customText(int _counter, String? _binary, bool status, context) {
-  if (status == true) {
+Widget customText(int _counter, String? _binary, String status, context) {
+  if (status == 'success') {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -26,7 +26,7 @@ Widget customText(int _counter, String? _binary, bool status, context) {
               child: BlocBuilder<CounterBloc, CounterState>(
                 builder: (context, state) {
                   if (state.counterValue < 0) {
-                    return Text('ERROR ${state.counterValue}',
+                    return Text('ERROR...',
                         style: TextStyle(
                           color: const Color.fromARGB(480, 88, 88, 88),
                           fontSize: 35.sp,
@@ -51,15 +51,30 @@ Widget customText(int _counter, String? _binary, bool status, context) {
       ],
     );
   } else {
-    return Column(
-      children: [
-        SizedBox(
-            height: 150.r,
-            width: 150.r,
-            child: CircularProgressIndicator(
-              strokeWidth: 10.sp,
-            )),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(
+              height: 100.r,
+              width: 100.r,
+              child: CircularProgressIndicator(
+                strokeWidth: 15.sp,
+              )),
+          SizedBox(height: 100.h),
+          SizedBox(
+            height: 300.h,
+            child: SingleChildScrollView(
+              child: Text(
+                status,
+                style: TextStyle(
+                  height: 1.7,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

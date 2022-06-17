@@ -8,7 +8,7 @@ import 'package:counter_app/models/binary_model.dart';
 import 'package:counter_app/resources/api_provider.dart';
 import 'package:counter_app/services/local_storage_services.dart';
 import 'package:counter_app/core/locator.dart';
-import '../../main.dart';
+import 'package:counter_app/main.dart';
 
 int savedValue = 0;
 
@@ -53,8 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class CounterPage extends StatelessWidget {
-  int _counter = 0;
-  String? _binary = '0';
   final ApiProvider _client = ApiProvider();
 
   initState() async {
@@ -71,6 +69,8 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int _counter = 0;
+    String? _binary = '0';
     savedValue = localStorageService.getValue();
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       BlocBuilder<CounterBloc, CounterState>(
@@ -84,10 +84,10 @@ class CounterPage extends StatelessWidget {
                   if (data != null) {
                     _binary = data.converted;
                     _counter = state.counterValue;
-                    return customText(_counter, _binary, true, context);
+                    return customText(_counter, _binary, 'success', context);
                   }
                 }
-                return customText(_counter, _binary, false, context);
+                return customText(_counter, _binary, errorMessage, context);
               });
         },
       ),

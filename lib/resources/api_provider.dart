@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:counter_app/models/binary_model.dart';
 
+String errorMessage = '';
+
 class ApiProvider {
   final Dio _dio = Dio();
 
@@ -13,13 +15,13 @@ class ApiProvider {
       return data;
     } on DioError catch (e) {
       if (e.response != null) {
-        print('Dio error!');
-        print('STATUS: ${e.response?.statusCode}');
-        print('DATA: ${e.response?.data}');
-        print('HEADERS: ${e.response?.headers}');
+        errorMessage = 'Dio error!\n'
+            'STATUS: ${e.response?.statusCode}\n'
+            'DATA: ${e.response?.data}\n'
+            'HEADERS: ${e.response?.headers}';
       } else {
-        print('Error');
-        print(e.message);
+        errorMessage = 'Error\n'
+            '${e.message}';
       }
     }
     return binarymodel;
