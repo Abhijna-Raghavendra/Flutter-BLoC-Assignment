@@ -21,7 +21,7 @@ class BinaryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['status'] = status;
     data['original'] = original;
     data['converted'] = converted;

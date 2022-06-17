@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:counter_app/presentation/UI/custom_theme.dart';
 import 'package:counter_app/presentation/screens/home_screen.dart';
+import 'core/locator.dart';
+import 'services/local_storage_services.dart';
 
-void main() {
+int savedValue = 0;
+
+LocalStorageService localStorageService = locator<LocalStorageService>();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+  LocalStorageService localStorageService = locator<LocalStorageService>();
+  savedValue = localStorageService.getValue();
   runApp(const MyApp());
 }
 

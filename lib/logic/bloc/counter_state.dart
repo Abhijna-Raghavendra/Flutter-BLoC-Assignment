@@ -1,5 +1,6 @@
 part of 'counter_bloc.dart';
 
+// ignore: must_be_immutable
 class CounterState extends Equatable {
   int counterValue;
   bool wasIncremented;
